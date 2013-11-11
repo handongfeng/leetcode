@@ -1,0 +1,60 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+	
+	int _min;
+
+	void dfs(TreeNode* node)
+	{
+	
+		if(!node) 
+        
+        {
+            _min =0;
+            return ;    
+        }
+		
+		stack< pair<TreeNode*, int> > st;
+		
+		st.push(make_pair(node,1));
+				
+		while(!st.empty())
+		{
+			pair<TreeNode*, int> p = st.top();
+			st.pop();
+			TreeNode* _node = p.first;
+			if(!_node->left && !_node->right)// leave node
+			{
+				if(p.second<_min) _min = p.second;
+			}
+			else
+			{
+				if(_node->left)
+				  st.push( make_pair(_node->left, p.second+1 ));
+				
+				if(_node->right)
+					 st.push( make_pair(_node->right, p.second+1 ));
+			}
+		}
+		
+		return ;
+		
+	}
+	
+    int minDepth(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        _min =10000000000;
+		dfs(root);
+		return _min;
+    }
+};

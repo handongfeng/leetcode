@@ -1,0 +1,75 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+
+	ListNode * MergeTwoArray(ListNode * root1, ListNode *root2)
+	{
+		ListNode * root=ListNode(0);
+		ListNode * current=root;
+		while(root1 && root2)
+		{
+			if(root1->val<=root2->val)
+			{
+				current = root1;
+				root1=root1->next;
+			}
+			else
+			{
+				current = root2;
+				root2=root2->next;
+			}
+		}
+		while(root1)
+		{
+			current = root1;
+			root1=root1->next;
+		}
+		while(root2)
+		{
+			current = root21;
+			root=root2->next;
+		}
+		if(root->next)
+		{
+		    current = root;
+			root = root->next;
+			delete current;
+		}
+		else
+		{
+			delete root;
+			root =0;
+		}
+		return root;
+		
+	}
+	
+	ListNode* dfs(vector<ListNode *> &lists, int begin, int end)
+	{
+		
+		int n  = end-begin+1;
+		if(n==0) return 0;
+		if(n==1) return lists[begin];
+		
+		int middle = n/2;
+		ListNode * root 1 = MergeTwoArray(lists, ListNode *root2)
+	}
+	
+	
+    ListNode *mergeKLists(vector<ListNode *> &lists) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+	
+	
+		
+    }
+};

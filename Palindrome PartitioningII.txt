@@ -1,0 +1,90 @@
+class Solution {
+public:
+
+
+
+	void palindrome(string s,vector<vector<bool>>& m)
+	{
+		int n = s.size();
+		m.clear();
+		if (n<=0) return ;
+		//vector<vector<bool>> m;
+		
+		// init
+		for(int i=0;i<n;i++)
+		{
+			vector<bool> v(n,false);
+			m.push_back(v);
+		}
+		for(int j=0;j<n;j++)
+			for(int i=0;i<=j;i++)
+			{
+				int length = j-i+1;
+				if(length <=0) m[i][j]=false;
+				if(length ==1) m[i][j]=true;
+				
+				if(length ==2)
+				{
+				 if(s[i]==s[j]) 
+					m[i][j]=true;
+				else
+				    m[i][j]=false;
+				}	
+				if(length>2)
+				{
+					m[i][j] = ( (s[i]==s[j]) && m[i+1][j-1] );
+				}	
+			}
+	}
+	
+	int dp(string s)
+	{
+		vector<vector<bool>> c;
+		palindrome(s,c);
+		vector<vector<int>> m;
+		int n= s.size();
+		m.resize(n);
+		for(int i=0;i<n;i++)
+		{
+			m[i].resize(n);
+			for(int j=0;j<n;j++)
+				m[i][j] =0;
+		}
+		
+		for(int j=0;j<n;j++)
+		{
+			for(int i=0;i<=j;i++)
+			{
+				int length = j-i+1;
+				if(length==1)
+				{
+					m[i][j] = 0;
+				}
+				else
+				{
+					
+				int _min = 1000000000;
+				for(int k=i;k<=j-1;k++)
+				{
+					//if(c[i][k] && c[k+1][j])
+					{
+					 _min = min(_min, m[i][k] + m[k+1][j] + 1);
+					}
+				}
+				if(c[i][j])
+				{
+					m[i][j] = 0;
+				}else
+					m[i][j] =_min;
+				}
+			}
+		}
+		return m[0][n-1];
+		
+	}
+    int minCut(string s) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        return dp(s);
+    }
+};

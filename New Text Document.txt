@@ -1,0 +1,50 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+
+	int _max ;
+	
+	
+	int dfs(TreeNode* node)
+	{
+		if(!node) return -999999;
+		
+		while(node)
+		{
+			
+		}
+		
+		int  l = dfs(node->left);
+		int r = dfs(node->right);
+		int m = node->val;
+		if(l>0) m+=l;
+		if(r>0) m+=r;
+		_max = max(_max,m); // pass node
+		_max = max(_max,l); // not pass node
+		_max = max(_max,r); // not pass node
+								
+		int v= max(r,l);
+		if(v>0) 
+		  return (node->val+v);
+		else return (node->val);
+		
+				
+	}
+
+    int maxPathSum(TreeNode *root) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        _max =0;
+		dfs(root);
+		return _max;
+    }
+};

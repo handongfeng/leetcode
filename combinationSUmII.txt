@@ -1,0 +1,45 @@
+class Solution {
+public:
+
+
+	vector<vector<int>> ret;
+	void dfs(vector<int> &candidates, int start, vector<int> &rest, int restTarget)
+	{
+		if(restTarget==0)
+		{
+			ret.push_back(rest);
+			return;
+		}
+		if(restTarget<0)
+		{
+			return;
+		}
+		if(start>=candidates.size()) return;
+		
+		if(restTarget>=candidates[start])
+		{	
+			int pre =-1;
+			for(int i=start;i<candidates.size();i++)
+			{
+				if(candidates[i]!=pre){
+					rest.push_back(candidates[i]);
+					dfs(candidates, i+1, rest, restTarget-candidates[i]);
+					pre = rest.back();
+					rest.pop_back();
+				}
+			}
+		}
+	}
+
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+            ret.clear();
+		if(num.size()<=0) return ret;
+		
+		sort(num.begin(), num.end());
+		vector<int> rest;
+		dfs(num, 0, rest,target);
+		return ret;
+    }
+};

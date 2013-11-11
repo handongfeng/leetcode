@@ -1,0 +1,48 @@
+#include<set>
+
+class Solution {
+public:
+    int longestConsecutive(vector<int> &num) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+       
+	   set<int> ret;
+	   int n = num.size();
+	   if(n<1) return 0;
+
+	   if(n==1) return 1;
+	   
+       for(int i=0;i<n;i++)
+	   {
+		ret.insert(num[i]);
+	   }
+	   
+	   vector<int> result;
+	   set<int>::iterator it;
+	   int pre = num[0]-100;
+	   int max_result =1;
+	   for(it= ret.begin();it!=ret.end();it++)
+	   {
+	     int p = (*it);
+		 
+		 if(pre == p-1)
+		 {
+			result.push_back(p);
+			if(result.size()>max_result)
+			{
+				max_result = result.size();
+			}
+		 }
+		 else
+		 {
+			result.clear();
+			result.push_back(p);
+		 }
+		 
+		 pre = p;
+	   }
+	   retuen max_result;
+	   
+	  
+    }
+};

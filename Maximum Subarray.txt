@@ -1,0 +1,73 @@
+
+
+
+
+
+
+class Solution {
+public:
+
+	int maxSubArray_helper(int a[], int begin, int end)
+	{
+		if(begin>end){return  0;}
+		
+		int mid = (begin+end)/2 ;
+		
+		int left = maxSubArray_helper(a,begin, mid);
+		int right = maxSubArray_helper(a,mid+1,end);
+		
+		int max_cross = -INT_MAX;
+		int sum =0;
+		for(int i= mid;i>=begin;i--)
+		{
+			sum += a[i];
+			if( sum > max_cross)
+			{
+				max_cross = sum ;
+			}
+		}
+		for(int i= mid+1;i<=end;i++)
+		{
+			sum += a[i];
+			if( sum > max_cross)
+			{
+				max_cross = sum ;
+			}
+		}
+		
+		int _max = max(left,right);
+		_max = max(_max,max_cross );
+		return _max;
+			
+	}
+	
+
+    int maxSubArray(int A[], int n) {
+        // Start typing your C/C++ solution below
+        // DO NOT write int main() function
+        
+		//if(n<1) return 0;
+		//int _max = maxSubArray_helper( A,  0,  n-1);
+		//return _max;
+		
+		int sum =0;
+		int _max = -INT_MAX:
+		for(int i =0;i<n;i++)
+		{
+			if(sum>=0)
+			{
+				sum+=A[i];
+				_max = max(_max,sum);
+			}
+			else
+			{
+				sum = A[i];
+				_max = max(_max,sum);
+			}
+		}
+		return sum;
+		
+    }
+	
+	
+};
