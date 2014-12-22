@@ -1,0 +1,75 @@
+/*
+Word Break 
+Given a string s and a dictionary of words dict, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+
+For example, given
+s = "leetcode",
+dict = ["leet", "code"].
+
+Return true because "leetcode" can be segmented as "leet code".
+*/
+
+
+
+
+
+
+
+class Solution {
+public:
+
+
+    void DPScan(vector<vector<int>> & M, string& s, unordered_set<string> &dict)
+    {
+        
+        int n = s.size();
+        if (n<1) return;
+        
+        M.resize(n);
+        for(int i=0;i<n;i++)
+        {
+            M[i].resize(n,0);
+        }
+        if(n==1)
+        {
+            if(dict.find(s)!=dict.end())
+            {M[0][0] = 1;}
+            
+            
+            return;
+        }
+        for(int j=0;j<n;j++)
+        {
+            for(int i=j;i>=0;i--)
+            {
+                string ss = s.substr(i,j-i+1);
+                
+                if( dict.find(ss)!= dict.end() )
+                {
+                    M[i][j] = 1;
+                }
+                else
+                {
+                    int flag =0;
+                    for(int k=i;k<j;k++)
+                    {
+                        if( M[i][k] &&M[k+1][j] )
+                        {
+                            flag= 1;
+                            break;
+                        }
+                    }
+                    M[i][j] = flag;
+                }
+            }
+        }
+        
+    }
+    bool wordBreak(string s, unordered_set<string> &dict) {
+        vector<vector<int>>  M;
+        DPScan( M, s,dict);
+        int n= s.size();
+        if(M[0][n-1]) return true;
+        else return false;
+    }
+};
